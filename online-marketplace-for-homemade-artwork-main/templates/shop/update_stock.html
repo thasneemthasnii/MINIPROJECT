@@ -1,0 +1,30 @@
+{% extends 'shop/shop.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+<section id="aa-myaccount">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-myaccount-area">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="aa-myaccount-login">
+                                <h4>Update Stock</h4>
+                                <form method="post" class="aa-login-form">{% csrf_token %}
+                                    <label>Instock</label>
+                                    <input class="form-control" type="number" required name="stock" value="{{item.instock}}">
+
+                                    <button type="submit" class="aa-browse-btn">SUBMIT</button>
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock  %}

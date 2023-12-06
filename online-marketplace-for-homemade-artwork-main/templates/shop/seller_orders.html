@@ -1,0 +1,121 @@
+{% extends 'shop/shop.html' %}
+{% block content %}
+{% load static %}
+
+<section id="cart-view">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-view-area">
+                    <div class="cart-view-table">
+                        <form action="">
+                            {% for message in messages %}
+                            <div class="alert alert-primary" role="alert">
+                                <h3>{{message}}</h3>
+                            </div>
+                            {% endfor %}
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>SI No</th>
+                                        <th>Order ID</th>
+                                        <th>Customer Name</th>
+                                        <th>Contact No</th>
+                                        <th>Shipping Address</th>
+                                        <th>Item Details</th>
+                                        <th>Order Date</th>
+                                        <th>Order Total</th>
+                                        <th>Order Status</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for order in orders %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{order.id}}</td>
+                                        <td>{{order.user}}</td>
+                                        <td>{{order.user.contact_no}}</td>
+
+
+                                        <td>
+                                            {{order.shipping_address.address}},{{order.shipping_address.city}},
+                                            {{order.shipping_address.district}},{{order.shipping_address.state}},
+                                            {{order.shipping_address.pincode}}
+                                        </td>
+                                        <td>
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th scope="col">Image</th>
+                                                    <th scope="col">Item</th>
+                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Total Item Price</th>
+                                                </tr>
+                                                {% for order_item in order.items.all %}
+                                                 {% if order_item.seller == order.seller %}
+                                                <tr>
+
+                                                    <td><img src="{{order_item.item.image.url}}"
+                                                             style="height:100px;width:100px;"></td>
+                                                    <td>{{order_item.item.product_name}}</td>
+                                                    <td>{{order_item.quantity}}</td>
+                                                    <td>Rs. {{ order_item.item.price }}</td>
+                                                    <td>Rs. {{ order_item.get_total_item_price }}</td>
+                                                </tr>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </table>
+                                        <td>{{order.ordered_date}}</td>
+                                        <td>RS. {{order.get_total}}</td>
+                                        <td>
+                                            {% if order.accepted == False %}
+                                            <a href="{% url 'accept_order' order.id %}" class="aa-browse-btn">Accept Order</a>
+                                            {% else %}
+
+                                            <button class="aa-browse-btn">Order Accepted; expected delivery on {{order.expected_delivery_date}}
+                                            </button>
+                                            {% endif %}
+                                            <br><br>
+                                            {% if order.received == False %}
+                                            <a href="{% url 'complete_order' order.id %}" class="aa-browse-btn">Complete Order</a>
+                                            {% else %}
+                                            <button type="submit" class="aa-browse-btn">Delivered on {{order.received_date}}
+                                            </button>
+                                            {% endif %}
+                                        </td>
+
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan='9'>No Orders Yet...</td>
+                                    </tr>
+
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="aa-subscribe">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-subscribe-area">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

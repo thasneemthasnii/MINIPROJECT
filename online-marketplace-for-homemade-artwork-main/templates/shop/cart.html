@@ -1,0 +1,106 @@
+{% extends 'shop/shop.html' %}
+{% block content %}
+{% load static %}
+
+<section id="cart-view">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-view-area">
+                    <div class="cart-view-table">
+                        <form action="">
+                            {% for message in messages %}
+                            <div class="alert alert-primary" role="alert">
+                                <h3>{{message}}</h3>
+                            </div>
+                            {% endfor %}
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Remove</th>
+                                        <th>Product</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for order in object %}
+                                     {% for order_item in order.items.all %}
+                                    <tr>
+                                        <td><a class="remove" href="{% url 'remove_from_cart' order_item.item.id %}">
+                                            <fa class="fa fa-close"></fa>
+                                        </a></td>
+                                        <td><img src="{{order_item.item.image.url}}"
+                                                             style="height:200px;width:250px;" alt="img"></td>
+                                        <td>{{order_item.item.product_name}}</td>
+                                        <td>Rs. {{order_item.item.price}}</td>
+                                        <td>
+                                            <div class="quantity">
+                                                <a href="{% url 'add_to_cart' order_item.item.id %}"> <img
+                                                        src="{% static 'shop/img/cart/arrow-up.png' %}"
+                                                        class="chg-quantity" style="width:30px;height:30px;"></a></div>
+                                            <p>{{ order_item.quantity }} </p>
+                                            <div class="quantity">
+                                                <a href="{% url 'remove_single_item_from_cart' order_item.item.id %}"><img
+                                                        src="{% static 'shop/img/cart/arrow-down.png' %}"
+                                                        class="chg-quantity" style="width:30px;height:30px;"></a>
+                                            </div>
+                                        </td>
+                                        <td> Rs. {{ order_item.get_total_item_price }}</td>
+                                    </tr>
+
+
+                                    {% endfor %}
+                                    {% endfor %}
+
+                                    <tr>
+                                        <td colspan="7" class="aa-cart-view-bottom">
+                                            <div class="aa-cart-coupon">
+                                            </div>
+                                            <a class="aa-cart-view-btn" href="{% url 'user_home' %}">Update Cart</a>
+                                        </td>
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                        <!-- Cart Total view -->
+                        <div class="cart-view-total">
+                            <h4>Cart Totals</h4>
+                            <table class="aa-totals-table">
+                                <tbody>
+
+                                <tr>
+                                    <th>Total</th>
+                                    <td>Rs. {{total}}
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <a href="{% url 'checkout' %}" class="aa-cart-view-btn">Proceed to Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="aa-subscribe">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-subscribe-area">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

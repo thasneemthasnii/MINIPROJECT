@@ -1,0 +1,97 @@
+{% extends 'shop/shop.html' %}
+{% block content %}
+{% load crispy_forms_filters %}
+
+<section id="checkout">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="checkout-area">
+                    <form method="post">{% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="checkout-left">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default aa-checkout-billaddress">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion"
+                                                       href="#collapseFour" class="" aria-expanded="true">
+                                                        Payment
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseFour" class="panel-collapse collapse in"
+                                                 aria-expanded="true" style="">
+                                                <div class="panel-body">
+                                                    {% for message in messages %}
+                                                    <div class="alert alert-primary" role="alert">
+                                                        <h3>{{message}}</h3>
+                                                    </div>
+                                                    {% endfor %}
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="aa-checkout-single-bill">
+                                                                {{payment_form|crispy}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+
+                                                            <button type="submit" class="aa-browse-btn">PLACE ORDER
+                                                            </button>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="checkout-right">
+                                    <h4>Order Summary</h4>
+                                    <div class="aa-order-summary-area">
+                                        <table class="table table-responsive">
+                                            <thead>
+                                            <tr>
+                                                <th>Item</th>
+                                                <th>Total</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for order in object %}
+                                            {% for order_item in order.items.all %}
+                                            <tr>
+                                                <td>{{ order_item.item.product_name }} <strong> x
+                                                    {{order_item.quantity}}
+                                                </strong></td>
+                                                <td>Rs. {{ order_item.get_total_item_price }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endfor %}
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <th>Total Amount</th>
+                                                <td>Rs. {{ cart_total }}</td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

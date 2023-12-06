@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>Login</title>
+    <meta content="Admin Dashboard" name="description"/>
+    <meta content="Themesbrand" name="author"/>
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}">
+
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/metismenu.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<!-- Background -->
+<div class="account-pages"></div>
+<!-- Begin page -->
+<div class="wrapper-page" style="width:500px;">
+
+    <div class="card">
+        <div class="card-body">
+
+            <h3 class="text-center m-0">
+                <p height="30">Login Now</p>
+            </h3>
+
+            <div class="p-3">
+                <h4 class="text-muted font-18 m-b-5 text-center">Welcome Back !</h4>
+                <p class="text-muted text-center"></p>
+
+                <form method="post">{% csrf_token %}
+
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" name="uname" placeholder="Enter username">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="pass" placeholder="Enter password">
+                    </div>
+
+                    <div class="form-group row m-t-20">
+
+                        <div class="col-12 text-center">
+                            <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Log In</button>
+                        </div>
+                    </div>
+                    {% for message in messages %}
+                    <div class="alert alert-primary" role="alert">
+
+                        <h5>{{message}}</h5>
+
+                    </div>
+                    {% endfor %}
+                    <div class="form-group m-t-10 mb-0 row">
+                        <div class="col-12 m-t-20">
+                           
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="m-t-40 text-center">
+        <p class="text-white-50"><h5 style="color:white;">Don't have an account ?</h5> <a href="{% url 'user_register' %}" class="text-white"><h5>Signup
+            Now </h5> </a></p>
+
+    </div>
+
+</div>
+
+<!-- END wrapper -->
+
+
+<!-- jQuery  -->
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/js/metisMenu.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.slimscroll.js' %}"></script>
+<script src="{% static 'assets/js/waves.min.js' %}"></script>
+
+<script src="../plugins/jquery-sparkline/jquery.sparkline.min.js' %}"></script>
+
+<!-- App js -->
+<script src="{% static 'assets/js/app.js' %}"></script>
+
+</body>
+
+</html>

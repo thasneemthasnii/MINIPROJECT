@@ -1,0 +1,30 @@
+{% extends 'admintemp/base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+<div class="col-lg-8">
+    <div class="card m-b-30">
+        <h4 class="card-header font-16 mt-0">Update Category</h4>
+        <div class="card-body">
+            <form method="post"> {% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {{form|crispy}}
+                    </div>
+                </div>
+                <div class="col-8 text-right">
+                    <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Submit</button>
+                </div>
+                 </form>
+
+                {% for message in messages %}
+                <div class="alert alert-primary" role="alert">
+                    <h5>{{message}}</h5>
+                </div>
+                {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

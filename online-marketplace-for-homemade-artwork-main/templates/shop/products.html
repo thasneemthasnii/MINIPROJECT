@@ -1,0 +1,153 @@
+{% extends 'shop/shop.html' %}
+{% load static %}
+{% block content %}
+<section id="aa-product-category">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-8 col-md-push-3">
+                {% for message in messages %}
+                <div class="alert alert-primary" role="alert">
+                    <h3>{{message}}</h3>
+                </div>
+                {% endfor %}
+                <div class="aa-product-catg-content">
+                    <div class="aa-product-catg-head">
+                        <div class="aa-product-catg-head-left">
+
+                        </div>
+                        <div class="aa-product-catg-head-right">
+                            <a id="grid-catg" href="#"><span class="fa fa-th"></span></a>
+                            <a id="list-catg" href="#"><span class="fa fa-list"></span></a>
+                        </div>
+                    </div>
+
+                    <div class="aa-product-catg-body">
+                        <ul class="aa-product-catg">
+                            <!-- start single product item -->
+
+                            {% for item in items %}
+                            <li>
+                                <figure>
+                                    <a class="aa-product-img" href="#"><img src="{{item.image.url}}"
+                                                                            style="width:250px; height:300px;"
+                                    ></a>
+                                    <a class="aa-add-card-btn" href="{% url 'add_to_cart' item.pk %}"><span
+                                            class="fa fa-shopping-cart"></span>Add To
+                                        Cart</a>
+                                    <figcaption>
+                                        <h4 class="aa-product-title"><a href="{% url 'detail_view' item.id %}">{{item.product_name}}</a>
+                                        </h4>
+                                        <span class="aa-product-price">Rs. {{item.price}}</span>
+                                        <p class="aa-product-descrip">{{item.description}}.</p>
+                                    </figcaption>
+                                </figure>
+                                <div class="aa-product-hvr-content">
+
+                                </div>
+                                <!-- product badge -->
+                                {% if item.instock > 0 %}
+                                <span class="aa-badge aa-sale" href="#">SALE!</span>
+                                {% elif item.instock <= 0 %}
+                                <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                                {% endif %}
+                            </li>
+                            {% empty %}
+                              <li>
+                                <figure>
+                                    <h3>No Products Found...</h3>
+                                </figure>
+                                <div class="aa-product-hvr-content">
+
+                                </div>
+
+                            </li>
+
+
+                            {% endfor %}
+
+
+                        </ul>
+
+                    </div>
+                    <div class="aa-product-catg-pagination">
+                        <nav>
+                            <ul class="pagination">
+                                {% if items.has_previous %}
+                                <li><a href="?page={{ items.previous_page_number }}">&laquo;</a></li>
+                                {% else %}
+                                <li class="disabled"><span>&laquo;</span></li>
+                                {% endif %}
+                                {% for i in items.paginator.page_range %}
+                                {% if items.number == i %}
+                                <li class="active"><span>{{ i }} <span
+                                        class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                                {% endfor %}
+                                {% if items.has_next %}
+                                <li><a href="?page={{ items.next_page_number }}">&raquo;</a></li>
+                                {% else %}
+                                <li class="disabled"><span>&raquo;</span></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-4 col-md-pull-9">
+                <aside class="aa-sidebar">
+                    <!-- single sidebar -->
+                    <div class="aa-sidebar-widget">
+                        <h3></h3>
+                        <ul class="aa-catg-nav">
+
+
+                        </ul>
+                    </div>
+
+                    <div class="aa-sidebar-widget">
+                        <h3>Top Rated Products</h3>
+                        <div class="aa-recently-views">
+                            {% for rate in ratings %}
+                            {% if rate.get_rating > 0 %}
+
+                            <ul>
+                                <li>
+                                    <a href="{% url 'detail_view' rate.id %}" class="aa-cartbox-img">
+                                        <img alt="img" src="{{rate.image.url}}">
+                                    </a>
+                                    <div class="aa-cartbox-info">
+                                        <h4><a href="{% url 'detail_view' rate.id %}">
+                                            {{rate.product_name}}
+                                        </a></h4>
+
+                                        <p>1 x Rs{{rate.price}}</p>
+                                    </div>
+                                </li>
+
+
+                            </ul>
+
+                            {% endif %}
+                            {% empty %}
+                               <ul>
+                                <li>
+                                       <p>No Ratings ...</p>
+
+                                </li>
+
+
+                            </ul>
+                         {% endfor %}
+                        </div>
+                    </div>
+
+                </aside>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

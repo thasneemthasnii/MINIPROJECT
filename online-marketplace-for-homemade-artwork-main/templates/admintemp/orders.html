@@ -1,0 +1,82 @@
+{% extends 'admintemp/base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+
+<div class="col-lg-12">
+    {% for message in messages %}
+    <div class="alert alert-primary" role="alert">
+        <h5>{{message}}</h5>
+    </div>
+    {% endfor %}
+
+    <div class="card m-b-20">
+        <h4 class="card-header font-16 mt-0"> Orders</h4>
+        <div class="card-body">
+            <table class="table mb-0">
+                <thead class="thead-default">
+                <thead>
+                <tr>
+                    <th>SI No</th>
+                    <th>Order ID</th>
+                    <th>Buyer</th>
+                    <th>Item Details</th>
+                    <th>Order Date</th>
+                    <th>Order Total</th>
+                    <th>Order Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{order.id}}</td>
+                    <td>{{order.user}}</td>
+                    <td>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th scope="col">Category</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Item</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Total Item Price</th>
+                                <th scope="col">Seller</th>
+                            </tr>
+                            {% for order_item in order.items.all %}
+                            <tr>
+                                <td>{{order_item.item.category}}</td>
+                                <td><img src="{{order_item.item.image.url}}" style="height:150px;width:150px;"></td>
+                                <td>{{order_item.item.product_name}}</td>
+                                <td>{{order_item.quantity}}</td>
+                                <td>{{ order_item.item.price }}</td>
+                                <td>Rs. {{ order_item.get_total_item_price }}</td>
+                                <td>{{ order_item.seller }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                    <td>{{order.ordered_date }}</td>
+                    <td><b>Rs. {{ order.get_total }}</b></td>
+                    <td>
+                        {% if order.received == True %}
+                        <p>Order Placed on {{order.received_date}}</p>
+                        {% elif order.being_delivered == True %}
+                        <p>Delivery In progress </p>
+                        {% else %}
+                        <p> Delivery Pending</p>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5"><h2 style="text-align:center; color:red;"> No Results Found</h2></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock  %}

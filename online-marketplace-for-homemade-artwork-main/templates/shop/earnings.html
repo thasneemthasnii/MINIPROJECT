@@ -1,0 +1,72 @@
+{% extends 'shop/shop.html' %}
+{% block content %}
+{% load static %}
+
+<section id="cart-view">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-view-area">
+                    <div class="cart-view-table">
+                        <form action="">
+                            {% for message in messages %}
+                            <div class="alert alert-primary" role="alert">
+                                <h3>{{message}}</h3>
+                            </div>
+                            {% endfor %}
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>SI No</th>
+                                        <th>Item</th>
+                                        <th>Price per Unit</th>
+                                        <th>Quantity Orderd</th>
+                                        <th>Total Item Price</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for i in earnings %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{i.item.product_name}}</td>
+                                        <td>Rs. {{i.item.price}}</td>
+                                        <td>{{i.quantity}}</td>
+                                        <td>Rs. {{i.total}}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan='6'>No Earnings Yet...</td>
+                                    </tr>
+
+                                    {% endfor %}
+                                    <tr>
+                                        <th colspan="4">Your Total Earnings :</th>
+                                        <td colspan="1">Rs. {{sum}}</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="aa-subscribe">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-subscribe-area">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

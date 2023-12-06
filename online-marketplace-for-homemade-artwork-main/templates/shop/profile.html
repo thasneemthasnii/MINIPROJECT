@@ -1,0 +1,63 @@
+{% extends 'shop/shop.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+<section id="aa-myaccount">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-myaccount-area">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="aa-myaccount-login">
+                                <h4>My Account</h4>
+                                {% for profile in profiles %}
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label>Name</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p>: {{profile.name}}</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label>Address</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p>: {{profile.address}}</p>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label>Email</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p>: {{profile.email}}</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label>Contact No</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p>: {{profile.contact_no}}</p>
+                                    </div>
+                                </div>
+                                <br>
+                                {% endfor %}
+                                <a href="{% url 'update_profile' %}" class="aa-browse-btn">Update Account</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock  %}

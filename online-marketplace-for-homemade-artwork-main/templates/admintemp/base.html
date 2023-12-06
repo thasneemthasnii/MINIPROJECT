@@ -1,0 +1,247 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>Handmade Art Shop</title>
+    <meta content="Admin Dashboard" name="description"/>
+    <meta content="Themesbrand" name="author"/>
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}">
+
+    <link rel="stylesheet" href="../plugins/morris/morris.css">
+
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/metismenu.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="wrapper">
+
+    <!-- Top Bar Start -->
+    <div class="topbar">
+
+        <!-- LOGO -->
+        <div class="topbar-left">
+            <a href="{% url 'admin_home' %}" class="logo">
+                        <span>
+                           <p>Handmade Art Shop</p>
+                        </span>
+                <i>
+
+                </i>
+            </a>
+        </div>
+
+        <nav class="navbar-custom">
+
+            <ul class="navbar-right d-flex list-inline float-right mb-0">
+                <li class="dropdown notification-list d-none d-sm-block">
+
+                </li>
+
+
+                <li class="dropdown notification-list">
+                    <div class="dropdown notification-list nav-pro-img">
+                        <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user waves-light"
+                           data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            {{request.user}} <img src="{% static 'assets/images/users/user-4.jpg' %}" alt="user"
+                                                  class="rounded-circle">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                            <!-- item-->
+
+                            <a class="dropdown-item text-danger" href="{% url 'logout_view' %}"><i
+                                    class="mdi mdi-power text-danger"></i> Logout</a>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+            <ul class="list-inline menu-left mb-0">
+                <li class="float-left">
+                    <button class="button-menu-mobile open-left waves-effect waves-light">
+                        <i class="mdi mdi-menu"></i>
+                    </button>
+                </li>
+                <li class="d-none d-sm-block">
+
+                </li>
+            </ul>
+
+        </nav>
+
+    </div>
+    <!-- Top Bar End -->
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="left side-menu">
+        <div class="slimscroll-menu" id="remove-scroll">
+
+            <div class="user-details">
+                <div class="float-left mr-2">
+                    <img src="{% static 'assets/images/users/user-4.jpg' %}" alt="" class="thumb-md rounded-circle">
+                </div>
+                <div class="user-info">
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            {{request.user}}
+                        </a>
+                        <ul class="dropdown-menu">
+
+                            <li><a href="{% url 'logout_view' %}" class="dropdown-item"><i
+                                    class="mdi mdi-power m-r-5"></i> Logout</a></li>
+                        </ul>
+                    </div>
+
+                    <p class="text-white-50 m-0">Administrator</p>
+                </div>
+            </div>
+
+            <!--- Sidemenu -->
+            <div id="sidebar-menu">
+                <!-- Left Menu Start -->
+                <ul class="metismenu" id="side-menu">
+                    <li class="menu-title">Main</li>
+                    <li>
+                        <a href="{% url 'admin_home' %}" class="waves-effect">
+                            <i class="mdi mdi-home"></i> <span> Dashboard </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-pages"></i><span> USERS <span
+                                class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="{% url 'users_view' %}">View Users</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-pages"></i><span> CATEGORY <span
+                                class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="{% url 'category_add' %}">Add Category</a></li>
+                            <li><a href="{% url 'category' %}">View Category</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-pages"></i><span> PRODUCTS <span
+                                class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="{% url 'products_from_users' %}">View Products </a></li>
+                            <li><a href="{% url 'approved_products' %}">Approved Products </a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-pages"></i><span> ORDERS <span
+                                class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="{% url 'orders_admin' %}">View Order </a></li>
+                            <li><a href="{% url 'payments' %}">Payment Details </a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-pages"></i><span> FEEDBACK <span
+                                class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="{% url 'feedback_admin' %}">View Feedback </a></li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+
+            </div>
+            <!-- Sidebar -->
+            <div class="clearfix"></div>
+
+        </div>
+        <!-- Sidebar -left -->
+
+    </div>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-title-box page-title-box-dark">
+                            <h4 class="page-title"></h4>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="page-content-wrapper">
+
+                    <div class="row">
+
+
+                        {% block content %}{% endblock %}
+
+
+                    </div>
+
+
+                </div>
+                <!-- end page content-->
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+        <footer class="footer">
+            © 2023 Handmade Art <span class="d-none d-sm-inline-block">- Shop <i class="mdi mdi-heart text-danger"></i> </span>
+        </footer>
+
+    </div>
+
+
+    <!-- ============================================================== -->
+    <!-- End Right content here -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+
+<!-- jQuery  -->
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/js/metisMenu.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.slimscroll.js' %}"></script>
+<script src="{% static 'assets/js/waves.min.js' %}"></script>
+
+<script src="../plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Peity JS -->
+<script src="../plugins/peity/jquery.peity.min.js"></script>
+
+<script src="../plugins/morris/morris.min.js"></script>
+<script src="../plugins/raphael/raphael-min.js"></script>
+
+<script src="{% static 'assets/pages/dashboard.js' %}"></script>
+
+<!-- App js -->
+<script src="{% static 'assets/js/app.js' %}"></script>
+
+</body>
+
+</html>

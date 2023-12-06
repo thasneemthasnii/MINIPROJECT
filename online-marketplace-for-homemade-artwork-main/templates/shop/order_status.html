@@ -1,0 +1,109 @@
+{% extends 'shop/shop.html' %}
+{% block content %}
+{% load static %}
+
+<section id="cart-view">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-view-area">
+                    <div class="cart-view-table">
+                        <form action="">
+                            {% for message in messages %}
+                            <div class="alert alert-primary" role="alert">
+                                <h3>{{message}}</h3>
+                            </div>
+                            {% endfor %}
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>SI No</th>
+                                        <th>Order ID</th>
+                                        <th>Item Details</th>
+                                        <th>Order Date</th>
+                                        <th>Order Total</th>
+                                        <th>Order Status</th>
+                                        <th>Delivery Status</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for order in orders %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{order.id}}</td>
+                                        <td>
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <th scope="col">Seller</th>
+                                                    <th scope="col">Image</th>
+                                                    <th scope="col">Item</th>
+                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Total Item Price</th>
+                                                </tr>
+                                                {% for order_item in order.items.all %}
+
+                                                <tr>
+
+                                                    <td>{{order_item.seller}}</td>
+                                                    <td><img src="{{order_item.item.image.url}}"></td>
+                                                    <td>{{order_item.item.product_name}}</td>
+                                                    <td>{{order_item.quantity}}</td>
+                                                    <td>Rs. {{ order_item.item.price }}</td>
+                                                    <td>Rs. {{ order_item.get_total_item_price }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </table>
+                                        <td>{{order.ordered_date }}</td>
+                                        <td><b>Rs. {{ order.get_total }}</b></td>
+                                        <td>
+                                            {% if order.accepted == True %}
+                                            <button class="aa-browse-btn">Order Accepted; Expected Delivery on
+                                                {{order.expected_delivery_date}}
+                                            </button>
+                                            {% else %}
+                                            <button class="aa-browse-btn">Order Pending</button>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if order.received == True %}
+                                            <button class="aa-browse-btn">Delivered on {{order.received_date}}</button>
+                                            {% else %}
+                                            <button class="aa-browse-btn">Delivery Pending</button>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="7">No Orders Yet...</td>
+                                    </tr>
+
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="aa-subscribe">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-subscribe-area">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
